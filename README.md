@@ -63,9 +63,30 @@ npm run build      # typecheck + production bundle
 npm run smoke      # headless round-trip smoke test
 ```
 
-To try a dev build in Obsidian, symlink or copy this folder (with a built `main.js`)
-into a vault under `.obsidian/plugins/taverntop-sync/` and enable it. Point
-**API base URL** at your local server (e.g. `https://localhost:7253`) for local dev.
+### Local test loop (build straight into a throwaway vault)
+
+Set `TTOP_DEV_VAULT` to any Obsidian vault and `npm run dev` builds into
+`<vault>/.obsidian/plugins/taverntop-sync/`, copies `manifest.json`/`styles.css`, and
+touches `.hotreload` (install the **Hot Reload** community plugin in that vault to
+auto-reload on every rebuild):
+
+```bash
+# macOS/Linux
+TTOP_DEV_VAULT="/path/to/DevVault" npm run dev
+```
+```powershell
+# Windows PowerShell
+$env:TTOP_DEV_VAULT = "C:\path\to\DevVault"; npm run dev
+```
+
+Then enable **Taverntop Sync** in that vault and, in its settings, point at your local
+stack for testing: **API base URL** → `https://localhost:7253`, and the **authorize/token
+URLs** → your local IdentityServer. The local IdentityServer registers the same
+`taverntop.obsidian` client + `obsidian://taverntop-sync/callback` redirect, so sign-in
+works locally. When you're happy, cut a release (below) to ship it to BRAT users.
+
+> Keep the dev vault separate from any vault where you run the BRAT-installed build — both
+> use the `taverntop-sync` plugin id, so running them in the *same* vault collides.
 
 ## Releasing
 
