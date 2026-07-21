@@ -1,6 +1,6 @@
 {
   "name": "taverntop-obsidian",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Obsidian plugin: two-way sync with the Taverntop Canon Engine.",
   "main": "main.js",
   "type": "module",

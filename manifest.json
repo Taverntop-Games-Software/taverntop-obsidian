@@ -1,7 +1,7 @@
 {
   "id": "taverntop-sync",
   "name": "Taverntop Sync",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "minAppVersion": "1.5.0",
   "description": "Two-way sync between your Obsidian vault and the Taverntop Canon Engine — push adventures & sessions down as markdown with [[wikilinks]], pull NPCs, locations, threads, hooks, lore & rumors up.",
   "author": "Taverntop Games",
