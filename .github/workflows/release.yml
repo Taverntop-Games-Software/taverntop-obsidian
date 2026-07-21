@@ -1,0 +1,49 @@
+name: Release Obsidian plugin
+
+# Cut a release by pushing a tag whose name EXACTLY matches manifest.json's
+# version (no leading "v" — Obsidian requires tag == manifest.version). The
+# standard flow is `npm version <patch|minor|major>` (which runs version-bump.mjs
+# to sync manifest.json + versions.json) then `git push --follow-tags`.
+on:
+  push:
+    tags:
+      - "*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+
+      - name: Install & build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Verify tag matches manifest version
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          MANIFEST_VERSION="$(node -p "require('./manifest.json').version")"
+          if [ "$TAG" != "$MANIFEST_VERSION" ]; then
+            echo "::error::Tag '$TAG' does not match manifest.json version '$MANIFEST_VERSION'. Obsidian requires them to match exactly."
+            exit 1
+          fi
+
+      - name: Create GitHub release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Loose assets (NOT zipped) — BRAT and the Obsidian community client
+          # read manifest.json/main.js/styles.css straight off the release.
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "${GITHUB_REF_NAME}" \
+            --generate-notes \
+            main.js manifest.json styles.css

@@ -1,0 +1,25 @@
+/*
+ * Taverntop Sync — settings tab styling.
+ *
+ * Obsidian renders each Setting as a flex row: name/description on the left, the
+ * control squeezed into a narrow right-hand column. That truncates long values
+ * like the Authorize/Token URLs and the bearer token (you see "https://localhost:5001/cor…").
+ *
+ * Fields tagged `.tts-wide` (see settings.ts) drop the control onto its own
+ * full-width row below the name/description so the whole value is readable. Scoped
+ * under `.taverntop-sync-settings` so it never touches Obsidian's own settings panes.
+ */
+.taverntop-sync-settings .setting-item.tts-wide {
+  display: block;
+}
+
+.taverntop-sync-settings .setting-item.tts-wide .setting-item-control {
+  margin-top: 0.5rem;
+  justify-content: flex-start;
+}
+
+.taverntop-sync-settings .setting-item.tts-wide .setting-item-control input[type="text"],
+.taverntop-sync-settings .setting-item.tts-wide .setting-item-control input[type="password"] {
+  width: 100%;
+  font-family: var(--font-monospace);
+}

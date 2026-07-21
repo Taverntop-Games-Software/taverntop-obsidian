@@ -1,0 +1,19 @@
+# npm
+node_modules/
+# package-lock.json IS committed — npm ci in the release workflow needs it
+
+# esbuild output (the bundled plugin artifact — built from src/, not committed)
+main.js
+
+# smoke-test bundle
+test/.smoke-build.cjs
+
+# Obsidian per-vault data if someone symlinks a dev vault in here
+data.json
+
+# OS / editor
+.DS_Store
+*.log
+
+# Visual Studio
+.vs/

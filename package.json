@@ -1,0 +1,37 @@
+{
+  "name": "taverntop-obsidian",
+  "version": "0.0.1",
+  "description": "Obsidian plugin: two-way sync with the Taverntop Canon Engine.",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "typecheck": "tsc -noEmit -skipLibCheck",
+    "smoke": "esbuild test/smoke.ts --bundle --platform=node --format=cjs --alias:obsidian=./test/obsidian-stub.ts --outfile=test/.smoke-build.cjs --log-level=warning && node test/.smoke-build.cjs",
+    "version": "node version-bump.mjs && git add manifest.json versions.json"
+  },
+  "keywords": [
+    "obsidian",
+    "taverntop",
+    "ttrpg",
+    "dnd"
+  ],
+  "author": "Taverntop Games",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "builtin-modules": "^3.3.0",
+    "esbuild": "^0.20.0",
+    "obsidian": "^1.5.0",
+    "typescript": "^5.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Taverntop-Games-Software/taverntop-obsidian.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Taverntop-Games-Software/taverntop-obsidian/issues"
+  },
+  "homepage": "https://github.com/Taverntop-Games-Software/taverntop-obsidian#readme"
+}
